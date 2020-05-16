@@ -16,7 +16,7 @@ public class SqlSession {
 
 
     public  <T> T selectOne(String statementId, Object param){
-       String sql=  this.configuration.sqlMappings.getString(statementId);
+       String sql=   configuration.sqlMappings.getString(statementId);
 
         System.out.println(sql);
         System.out.println(param);

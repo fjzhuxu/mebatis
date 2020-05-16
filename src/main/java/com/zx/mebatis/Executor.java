@@ -5,9 +5,32 @@ import com.zx.test.domian.Blog;
 import java.sql.*;
 
 public class Executor {
-    public <T> T query(String sql, Object param) {
+    private  Configuration configuration;
+
+    public Executor(Configuration configuration) {
+        this.configuration = configuration;
+    }
+
+    public Connection getConnection() throws SQLException {
         Connection conn = null;
-        Statement stmt = null;
+        System.out.println(configuration.dbMappings);
+        String driver = configuration.dbMappings.getString("driver");
+        String url = configuration.dbMappings.getString("url");
+        String username = configuration.dbMappings.getString("username");
+        String password = configuration.dbMappings.getString("password");
+        try {
+            Class.forName(driver);
+            conn = DriverManager.getConnection(url, username, password);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return conn;
+    }
+
+
+    public <T> T query(String sql, Object param) {
+        Connection conn =null;
+                Statement stmt = null;
         Blog blog = new Blog();
 
         try {
@@ -15,8 +38,7 @@ public class Executor {
             // Class.forName("com.mysql.jdbc.Driver");
 
             // 打开连接
-            conn = DriverManager.getConnection("jdbc:mysql://47.98.215.168:3306/gp", "root", "123456");
-
+              conn =   getConnection() ;
             // 执行查询
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery( String.format(sql,param));
