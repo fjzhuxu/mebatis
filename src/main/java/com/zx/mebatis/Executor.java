@@ -13,11 +13,10 @@ public class Executor {
 
     public Connection getConnection() throws SQLException {
         Connection conn = null;
-        System.out.println(configuration.dbMappings);
-        String driver = configuration.dbMappings.getString("driver");
-        String url = configuration.dbMappings.getString("url");
-        String username = configuration.dbMappings.getString("username");
-        String password = configuration.dbMappings.getString("password");
+        String driver = configuration.getPropertiesValue("driver");
+        String url = configuration.getPropertiesValue("url");
+        String username = configuration.getPropertiesValue("username");
+        String password = configuration.getPropertiesValue("password");
         try {
             Class.forName(driver);
             conn = DriverManager.getConnection(url, username, password);
@@ -34,10 +33,7 @@ public class Executor {
         Blog blog = new Blog();
 
         try {
-            // 注册 JDBC 驱动
-            // Class.forName("com.mysql.jdbc.Driver");
 
-            // 打开连接
               conn =   getConnection() ;
             // 执行查询
             stmt = conn.createStatement();
