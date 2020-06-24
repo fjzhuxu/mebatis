@@ -1,4 +1,14 @@
 package com.zx.mebatis.annotaion;
 
-public interface Entity {
+import javax.lang.model.element.Element;
+import java.lang.annotation.*;
+
+/**
+ * 用于注解接口，以映射返回的实体类
+ */
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface Entity {
+    Class<?> value();
 }

@@ -1,11 +1,12 @@
 package com.zx.mebatis;
 
+import com.zx.mebatis.session.Configuration;
 import com.zx.test.domian.Blog;
 
 import java.sql.*;
 
 public class Executor {
-    private  Configuration configuration;
+    private Configuration configuration;
 
     public Executor(Configuration configuration) {
         this.configuration = configuration;
@@ -48,7 +49,7 @@ public class Executor {
                 blog.setBid(bid);
                 blog.setName(name);
             }
-//            System.out.println(blog);
+             System.out.println(blog);
 
             rs.close();
             stmt.close();
